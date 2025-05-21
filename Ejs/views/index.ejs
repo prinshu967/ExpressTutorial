@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>EJS Syntax Demo</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f2f5;
+      margin: 0;
+      padding: 0;
+    }
+    header, footer {
+      background: #4a90e2;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    main {
+      padding: 40px;
+      max-width: 800px;
+      margin: auto;
+      background: white;
+      border-radius: 10px;
+      margin-top: 30px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    h2 {
+      margin-top: 30px;
+      color: #333;
+    }
+    code {
+      background: #eee;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: monospace;
+    }
+    ul {
+      padding-left: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Hello, <%= user %> 👋</h1>
+    <p>EJS Full Syntax Demo</p>
+  </header>
+
+  <main>
+
+    <h2>1. Output Escaped</h2>
+    <p>Your name is: <%= user %></p>
+
+    <h2>2. Output Unescaped HTML</h2>
+    <p><%- "<strong>This is bold HTML!</strong>" %></p>
+
+    <h2>3. Conditional Statement</h2>
+    <% if (user === "Prinshu") { %>
+      <p>Welcome back, Admin!</p>
+    <% } else { %>
+      <p>Access Denied</p>
+    <% } %>
+
+    <h2>4. Ternary Operator</h2>
+    <p>You are <%= user === "Prinshu" ? "authorized" : "unauthorized" %>.</p>
+
+    <h2>5. Loop Example</h2>
+    <ul>
+      <% const colors = ["Red", "Green", "Blue"]; %>
+      <% colors.forEach((color, i) => { %>
+        <li>Color <%= i + 1 %>: <%= color %></li>
+      <% }) %>
+    </ul>
+
+    <h2>6. Calculation</h2>
+    <p>2 + 2 = <%= 2 + 2 %></p>
+
+    <h2>7. Current Time</h2>
+    <p><%= new Date().toLocaleString() %></p>
+
+    <h2>8. Include Example</h2>
+    <p>Header and footer in this layout are static, but you could include like this:</p>
+    <code>&lt;%- include('partials/header') %&gt;</code>
+
+  </main>
+
+  <footer>
+    &copy; <%= new Date().getFullYear() %> | Made with ❤️ by Prinshu
+  </footer>
+
+</body>
+</html>

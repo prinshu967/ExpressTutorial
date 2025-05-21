@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Home | EJS Demo</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f4f6f8;
+      color: #333;
+    }
+    header {
+      background-color: #4a90e2;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    main {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 20px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    h1, h2 {
+      margin-bottom: 10px;
+    }
+    p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      padding: 20px;
+      color: #999;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Welcome, <%= user %> 👋</h1>
+    <p>Powered by Express & EJS</p>
+  </header>
+
+  <main>
+    <h2>Home Page</h2>
+    <p>This page demonstrates a basic calculation and dynamic data rendering using EJS.</p>
+
+    <p><strong>Calculation:</strong> 2 + 2 = <%= 2 + 2 %></p>
+
+    <p><strong>Current Time:</strong> <%= new Date().toLocaleString() %></p>
+  </main>
+
+  <footer>
+    &copy; <%= new Date().getFullYear() %> Prinshu's App. All rights reserved.
+  </footer>
+
+</body>
+</html>
