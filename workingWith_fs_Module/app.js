@@ -34,11 +34,11 @@ app.get('/', (req, res) => {
       });
     });
 
-    console.log(readFilePromises);
+    
 
     Promise.all(readFilePromises)
       .then(fileData => {
-        res.render('index', { files: fileData }); // `files` is an array of objects: [{ name, description }]
+        res.render('index', { files: fileData ,dir}); // `files` is an array of objects: [{ name, description }]
       })
       .catch(error => {
         console.error('Error reading files:', error);
@@ -50,8 +50,24 @@ app.get('/', (req, res) => {
 
 app.post('/submit', (req, res) => {
   const body = req.body;
-  console.log(body);
+console.log(body);
+
+const dir = path.join(__dirname, 'files');
+const fileName = body.name.split(' ').join('') + '.txt';
+const filePath = path.join(dir, fileName);
+const fileContent = body.message;
+
+fs.writeFile(filePath, fileContent, (err) => {
+  if (err) {
+    console.error('Error writing file:', err);
+    return res.status(500).send('File write error');
+  }
+
+  console.log('File written successfully');
+  // Render only after the file has been successfully written
   res.render('submit', { body });
+});
+
 });
 
 app.listen(port, () => {
