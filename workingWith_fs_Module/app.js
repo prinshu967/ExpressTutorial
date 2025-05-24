@@ -70,6 +70,21 @@ fs.writeFile(filePath, fileContent, (err) => {
 
 });
 
+
+app.delete('/delete/:fileName', (req, res) => {
+  const fileName = req.params.fileName;
+  const dir = path.join(__dirname, 'files');
+  const filePath = path.join(dir, fileName);
+  fs.unlink(filePath, (err) => {
+    if (err) {
+      console.error('Error deleting file:', err);
+      return res.status(500).send('File delete error');
+    }
+    console.log('File deleted successfully');
+    res.status(200).send('File deleted successfully');
+  });
+
+});
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
   
