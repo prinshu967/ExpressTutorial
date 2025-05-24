@@ -142,23 +142,53 @@
 
       <button type="submit">Submit</button>
     </form>
+       <% if (files.length === 0) { %>
+  <h2>No files uploaded</h2>
+<% } else { %>
+  <h2>Uploaded Files</h2>
+  <div id="file-list">
+    <% files.forEach(function(file) { %>
+      <div class="file-card">
+        <h2><%= file.name %></h2>
+        <p><%= file.description %></p>
+        <button onclick="DeleteFile(this)">Delete</button>
+      </div>
+    <% }); %>
+  </div>
+<% } %>
 
-    <h2>Uploaded Files</h2>
-    <div id="file-list">
-      <% files.forEach(function(file) { %>
-        <div class="file-card">
-          <h2><%= file.name %></h2>
-          <p><%= file.description %></p>
-          
-        </div>
-      <% }); %>
-    </div>
+    
 
   </main>
 
   <footer>
     &copy; <%= new Date().getFullYear() %> | Made with ❤️ by Prinshu
   </footer>
+
+  <script>
+
+     async function DeleteFile(button) {
+      const fileName = button.parentElement.querySelector('h2').innerText;
+      await fetch(`/delete/${fileName}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      .then(response => {
+        if (response.ok) {
+          console.log('File deleted successfully');
+          location.reload(); // Reload the page to see the updated file list
+        } else {
+          console.error('Error deleting file:', response.statusText);
+        }
+      })
+         
+
+     }
+      
+
+  </script>
 
 </body>
 </html>
