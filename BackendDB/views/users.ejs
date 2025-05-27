@@ -45,6 +45,12 @@
   </style>
 </head>
 <body style="display: flex;flex-direction: column; justify-content: center; align-items: center;  background-color: #f0f0f0;">
+  <% if (message) { %>
+  <div style="background-color: #d4edda; color: #155724; padding: 10px; border-radius: 4px; margin: 10px 0;">
+    <%= message %>
+  </div>
+<% } %>
+
    <h1><a href="/">Add User</a></h1>
   <div class="users">
     <% if (users.length === 0) { %>
@@ -55,6 +61,16 @@
           <img src="<%= user.url %>" alt="User Image">
           <h3><%= user.name %></h3>
           <p><%= user.email %></p>
+          
+          <div style="display: flex;gap: 29px; margin-top: 10px;">
+            
+           <a href="/edit/<%= user._id %>">Edit</a>
+
+
+             <a href="/delete/<%= user._id%>">Delete</a>
+
+          </div>
+          
         </div>
       <% }) %>
     <% } %>
