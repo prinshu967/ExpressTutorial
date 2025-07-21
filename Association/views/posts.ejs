@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>All Posts | MyApp</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+      min-height: 100vh;
+      padding: 40px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: #333;
+    }
+
+    h2 {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: #2c3e50;
+    }
+
+    .alert {
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      text-align: center;
+      font-weight: bold;
+      width: 100%;
+      max-width: 700px;
+      animation: fadeIn 0.6s ease;
+    }
+
+    .alert.success {
+      background-color: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+
+    .alert.error {
+      background-color: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .posts {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      max-width: 700px;
+      width: 100%;
+    }
+
+    .post {
+      background-color: rgba(255, 255, 255, 0.95);
+      padding: 20px 25px;
+      border-radius: 15px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+      transition: transform 0.2s ease;
+    }
+
+    .post:hover {
+      transform: translateY(-5px);
+    }
+
+    .post p {
+      font-size: 1rem;
+      color: #444;
+      margin-bottom: 5px;
+    }
+
+    .post small {
+      display: block;
+      margin-top: 10px;
+      color: #777;
+      font-size: 0.9rem;
+    }
+
+    .like-section {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 15px;
+    }
+
+    .like-count {
+      font-size: 1rem;
+      color: #2c3e50;
+    }
+
+    .like-btn {
+      background-color: #ff7675;
+      color: white;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .like-btn:hover {
+      background-color: #d63031;
+    }
+
+    .btn {
+      margin-top: 40px;
+      padding: 14px 30px;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: #2980b9;
+    }
+
+    @media (max-width: 600px) {
+      .post {
+        padding: 15px;
+      }
+      .like-btn {
+        padding: 8px 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Flash Messages -->
+  <% if (success_msg) { %>
+    <div class="alert success"><%= success_msg %></div>
+  <% } %>
+
+  <% if (error_msg) { %>
+    <div class="alert error"><%= error_msg %></div>
+  <% } %>
+
+  <!-- Posts Section -->
+  <div class="posts">
+    <% if (posts && posts.length > 0) { %>
+      <h2>All Posts</h2>
+      <% posts.forEach(post => { if (post) { %>
+        <div class="post">
+          <p><strong><%= post.user?.name || 'Anonymous' %>:</strong> <%= post.content %></p>
+          <p><strong><%= post.user?.email || 'Anonymous' %></strong></p>
+
+          <div class="like-section">
+            <div class="like-count">❤️ Likes: <span id="like-count-<%= post._id %>"><%= post.likes %></span></div>
+            <form action="/posts/<%= post._id %>/like" method="POST">
+              <button type="submit" class="like-btn">👍 Like</button>
+            </form>
+          </div>
+
+          <small>Posted on <%= new Date(post.date).toLocaleString() %></small>
+        </div>
+      <% } }); %>
+    <% } else { %>
+      <div class="post">
+        <p>No posts yet. Start by writing something!</p>
+      </div>
+    <% } %>
+  </div>
+
+  <!-- Logout Button -->
+  <a href="/logout" class="btn">Logout</a>
+
+  <!-- Auto-hide flash messages -->
+  <script>
+    setTimeout(() => {
+      const alerts = document.querySelectorAll('.alert');
+      alerts.forEach(alert => alert.style.display = 'none');
+    }, 3000);
+  </script>
+</body>
+</html>

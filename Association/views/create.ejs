@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create User</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #f4f4f4;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 300px;
+        }
+        input {
+            padding: 10px;
+            border: 2px solid black;
+            border-radius: 5px;
+        }
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Create User</h1>
+    <form action="/register" method="POST">
+        <input type="text" name="name" placeholder="Enter your name" required>
+        <input type="password" name="password" placeholder="Enter your password" required>
+        <input type="email" name="email" placeholder="Enter your email" required>
+        <input type="number" name="age" placeholder="Enter your age" required>
+        <input type="submit" value="Register">
+         <p>Already have an account? <a href="/">Login here</a>.</p>
+        
+    </form>
+</body>
+</html>
